@@ -17,7 +17,7 @@
   --color-accent:      #C07A50;   /* dorado/ámbar para títulos menú */
   --color-divider:     #C8BDB5;
   --color-icon:        #3A2E26;
-
+  --color-background:  #D0BEB2; /* color para fondo de la pagina de mascotas entre otras*/
   --sidebar-width:     320px;
   --radius-card:       24px;
   --font-display:      'Playfair Display', Georgia, serif;
