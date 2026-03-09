@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <title>Veterinaria Siamese</title>
+  <link href="/css/estilos.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+    <!--btn agregar -->
+    <section th:fragment="agregar">
+        <div style="margin-bottom: 1.5rem;">
+            <a href="/producto/modificar/0" class="btn btn-primary">+ Agregar Producto</a>
+        </div>
+    </section>
+
+    <!-- vista de todo -->
+    <section th:fragment="listado">
+        <div th:if="${productos != null and !productos.empty}">
+            <!-- Grid de tarjetas -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                <div th:each="p : ${productos}" class="card" style="text-align: center; padding: 1rem;">
+                    <!-- Imagen del producto -->
+                    <img th:src="@{${p.rutaImagen}}" alt="producto"
+                         style="width: 100%; height: 180px; object-fit: contain; background: #f0ebe3; border-radius: 8px;"/>
+                    <!-- Nombre -->
+                    <p style="font-weight: 700; margin-top: 0.8rem;">[[${p.descripcion}]]</p>
+                    <!-- Precio -->
+                    <p style="color: var(--color-accent);">₡[[${p.precio}]]</p>
+                    <!-- Botones -->
+                    <div style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem;">
+                        <a th:href="@{/producto/modificar/{id}(id=${p.idProducto})}"
+                           class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.3rem 0.7rem;">
+                            Editar
+                        </a>
+                        <form th:action="@{/producto/eliminar}" method="post" style="margin: 0;">
+                            <input type="hidden" name="idProducto" th:value="${p.idProducto}"/>
+                            <button type="submit" class="btn btn-danger"
+                                    style="font-size: 0.8rem; padding: 0.3rem 0.7rem;">
+                                Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Si no hay productos -->
+        <div th:if="${productos == null or productos.empty}" style="text-align: center; padding: 2rem;">
+            <p class="page-subtitle">No hay productos registrados.</p>
+        </div>
+    </section>
+
+    <!-- ediatr -->
+    <section th:fragment="editar">
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <form method="POST" th:action="@{/producto/guardar}"
+                  th:object="${producto}" enctype="multipart/form-data">
+
+                <input type="hidden" name="idProducto" th:field="*{idProducto}"/>
+                <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
+
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                    <a href="/producto/listado" class="btn btn-secondary">← Regresar</a>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+
+                <p class="card-title">Datos del Producto</p>
+
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <input type="text" th:field="*{descripcion}" required="true"/>
+                </div>
+                <div class="form-group">
+                    <label>Detalle</label>
+                    <textarea th:field="*{detalle}"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Precio</label>
+                    <input type="number" step="0.01" th:field="*{precio}" required="true"/>
+                </div>
+                <div class="form-group">
+                    <label>Existencias</label>
+                    <input type="number" th:field="*{existencias}" required="true"/>
+                </div>
+                <div class="form-group">
+                    <label>Activo</label>
+                    <input type="checkbox" th:field="*{activo}" style="width: auto;"/>
+                </div>
+                <div class="form-group">
+                    <label>Imagen</label>
+                    <input type="file" name="imagenFile"/>
+                    <img th:src="@{${producto.rutaImagen}}" alt="imagen producto"
+                         style="margin-top: 0.5rem; height: 150px; object-fit: contain;"
+                         th:if="${producto.rutaImagen != null}"/>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>
