@@ -7,39 +7,52 @@
   </head>
   
   <body>
-    <!-- Menú lateral -->
-    <div class="sidebar">
-        
-        <header class="topbar">
-         <a href="/perfil">
-    <img src="/img/veterinaria.jpg" alt="" width="35"/>
-  </a>
-</header>
-        
 
-       
+    
+    <div class="app-wrapper">
+  <aside class="sidebar">
+
+    <div class="logo">
+        <img src="/img/veterianaria.png" alt="">
     </div>
 
-    <!-- Contenido principal -->
-    <div class="main">
-        <div class="section">
+    <div class="sidebar-section">
+
+        <ul class="menu-listCitas">
+            <li><a href="/listaMascotas" class="btn-citas">Lista de mascotas</a></li>
+            <li><a href="/selectorDueño" class="btn-citas">Selector de dueño</a></li>
+            <li><a href="/AgregarRegistrar" class="btn-citas">Agregar / registrar mascotas</a></li>
+            <li><a href="/editarEliminar" class="btn-citas">Editar / eliminar mascotas</a></li>
+        </ul>
+    </div>
+
+</aside>
+        
+        <div class="main-content">
+                <header class="topbar">
+                    <a href="/perfil" class="topbar-user">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="7" r="4"/>
+                        <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>
+                        </svg>
+                    </a>
+                </header>
             
-            <img src="Paseo_mascota.png">
-        </div>
-        <div class="section">
-            <img src="mascotas.png">
-        </div>
-    </div>
-    <section>
-          <h1 class="menu-title">Opciones</h1>
+              <div class="contenedor">
 
-          <ul class="menu-list">
-            <li><a href="/Lista de mascotas">Lista de mascotas</a></li>
-            <li><a href="/Selector de dueño">Selector de dueño</a></li>
-            <li><a href="/Agregar/registrar mascotas">Agregar/registrar mascotas</a></li>
-            <li><a href="/Editar / Eliminar mascotas">Editar / Eliminar mascotas</a></li>
-          </ul>
-        </section>
+    
+    <div class="persona-perro">
+
+    <img src="/img/paseo_mascota.png" alt="" class="img-pasep">
+    </div>
+
+    <div class="cuadro-mascotas">
+        <img src="/img/mascotas.png" alt="" class="img-mascotas">
+    </div>
+
+</div>
+
   
     <footer style="margin-top: auto; padding-top: 2rem;
                        font-size: 0.8rem; color: var(--color-text-muted); text-align: center;">
