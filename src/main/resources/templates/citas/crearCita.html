@@ -35,23 +35,37 @@
                             <img src="/img/usuario.png" alt="" width="35"/>
                         </a>
                     </header>
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <img src="/img/mensaje.png" alt="" class="img-mensaje"/>
-                        </div>
-                        <div class="contact-info">
-                            <p><strong>+506 0000-0000</strong><br>Teléfono de emergencias</p>
-                            <p><strong>+506 0000-0000</strong><br>Solicite su cita</p>
-                        </div>
-                    </div>
+                    <form th:action="@{/guardar}" th:object="${cita}" method="post">
+                        <div class="input-crear">
+                            <label>Nombre de la mascota</label>
+                            <input type="text" 
+                                   class="form-control"
+                                   th:field="*{nombre}"
+                                   required="true"/>
 
-                    <img src="/img/perroCitas.png" alt="" class="img-citas"/>
-                    <footer style="margin-top: auto; padding-top: 2rem;
-                            font-size: 0.8rem; color: var(--color-text-muted); text-align: center;">
-                        Todos los Derechos Reservados &copy; Veterinaria
-                    </footer>
-                    </body>
+                            <label>Razon de la cita</label>
+                            <input type="text" 
+                                   class="form-control" 
+                                   th:field="*{razon}" 
+                                   required="true"/>
+
+                            <label>Fecha de la cita</label>
+                            <input type="date"
+                                   class='form-control' 
+                                   th:field="*{fecha}"/>
+
+                            <label>Hora de la cita</label>
+                            <input type="time" 
+                                   class='form-control' 
+                                   th:field="*{hora}" />
+
+                            <button type='submit' class="btn-guardar"> Guardar </button></div>
                 </div>
             </div>
         </header>
+        <footer style="margin-top: auto; padding-top: 2rem;
+                font-size: 0.8rem; color: var(--color-text-muted); text-align: center;">
+            Todos los Derechos Reservados &copy; Veterinaria
+        </footer>
+    </body>
 </html>

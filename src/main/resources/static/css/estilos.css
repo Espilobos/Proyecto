@@ -283,6 +283,41 @@ html, body {
 .btn-citas:hover {
   background-color: gold;     /* tono más intenso al pasar el mouse */
 }
+.btn-guardar{
+    background-color: #D4956A;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    border-color: #D4956A;
+    border-radius: var(--radius-card); /*redondea*/
+    margin: 15%;
+    width: 200px;
+}
+.btn-guardar:hover {
+    background-color: orange;
+}
+.centro{
+    text-align: center;
+    position: absolute;
+}
+.input-citas{
+    font-size: 2rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    margin: 15%;
+}
+.input-crear{
+    font-size: 1.5rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    margin: 3%;
+}
 
 
 /* ============================================
@@ -474,7 +509,7 @@ tbody td {
 }
 
 .img-citas {
-    width: 350px;
+    width: 320px;
     height: auto;
     margin-top: auto;
 }
