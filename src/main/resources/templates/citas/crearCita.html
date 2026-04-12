@@ -37,29 +37,35 @@
                     </header>
                     <form th:action="@{/guardar}" th:object="${cita}" method="post">
                         <div class="input-crear">
-                            <label>Nombre de la mascota</label>
-                            <input type="text" 
-                                   class="form-control"
-                                   th:field="*{nombre}"
-                                   required="true"/>
+                            <div>
+                                <label>Nombre de la mascota</label>
+                                <input type="text" 
+                                       class="form-control"
+                                       th:field="*{nombre}"
+                                       required="true"/>
+                            </div>
+                            <div>
+                                <label>Razon de la cita</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       th:field="*{razon}" 
+                                       required="true"/>
+                            </div>
+                            <div>
+                                <label>Fecha de la cita</label>
+                                <input type="date"
+                                       class='form-control' 
+                                       th:field="*{fecha}"/>
 
-                            <label>Razon de la cita</label>
-                            <input type="text" 
-                                   class="form-control" 
-                                   th:field="*{razon}" 
-                                   required="true"/>
-
-                            <label>Fecha de la cita</label>
-                            <input type="date"
-                                   class='form-control' 
-                                   th:field="*{fecha}"/>
-
-                            <label>Hora de la cita</label>
-                            <input type="time" 
-                                   class='form-control' 
-                                   th:field="*{hora}" />
-
+                            </div>
+                            <div>
+                                <label>Hora de la cita</label>
+                                <input type="time" 
+                                       class='form-control' 
+                                       th:field="*{hora}" />
+                            </div>
                             <button type='submit' class="btn-guardar"> Guardar </button></div>
+                    </form> 
                 </div>
             </div>
         </header>

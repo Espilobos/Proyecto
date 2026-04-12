@@ -28,21 +28,22 @@
                         </ul>
                     </div>
                 </aside>
-                
+
                 <div class="main-content">
                     <header class="topbar">
                         <a href="/perfil">
                             <img src="/img/usuario.png" alt="" width="35"/>
                         </a>
                     </header>
+
+                    <form action="/eliminarCita" method="post">
+                        <div class="input-citas">
+                            <label> Escriba el id de la cita a cancelar </label> 
+                            <input type="number" name="id" class="form-control" required="true"/>
+                            <button type="submit" class="btn-guardar">Cancelar cita</button>
+                        </div>
+                    </form>
                 </div>
-                <form action="/citas/cancelarCita" method="post">
-                    <div class="input-citas">
-                        <label> Escriba el id de la cita a cancelar </label> 
-                        <input type="number" name="id" class="form-control" required="true"/>
-                        <button type="submit" class="btn-guardar">Cancelar cita</button>
-                    </div>
-                </form>
             </div>
         </header>
         <footer style="margin-top: auto; padding-top: 2rem;

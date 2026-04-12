@@ -37,7 +37,7 @@ public class CitasController {
     public String cancelarCitas() {
         return "citas/cancelarCita";
     }
-    @GetMapping("/eliminar/{id}")
+    @PostMapping("/eliminarCita")
     public String eliminar(@RequestParam Long id) {
         citaService.eliminar(id);
         return "redirect:/citas";
