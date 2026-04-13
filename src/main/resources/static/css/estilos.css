@@ -561,3 +561,82 @@ tbody td {
 .cuadro-mascotas img{
     width: 320px;
 }
+
+.contenedor {
+    width: 700px;
+    margin: 40px auto;
+    background: #5c5a99;
+    padding: 30px;
+    border-radius: 15px;
+    color: white;
+}
+
+/* Distribución en columnas */
+.fila {
+    display: flex;
+    justify-content: space-between;
+}
+
+.columna {
+    width: 48%;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+/* Inputs y textarea */
+input,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #d9d9d9;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* Tamaño del textarea */
+textarea {
+    height: 120px;
+    resize: none;
+}
+
+/* Contenedor del botón */
+.boton-contenedor {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Botón */
+button {
+    background: #1f2bd6;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Hover del botón */
+
+
+/* Solo estilos específicos para eliminar */
+    .titulo {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .boton-eliminar {
+        background: #d62828;
+    }
+
+    .boton-eliminar:hover {
+        background: #a61b1b;
+    }
