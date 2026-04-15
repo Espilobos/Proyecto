@@ -6,13 +6,14 @@
   </head> 
   
       <body>
-        <header th:replace="~{general/index :: header}"/>        
-        
-        <section th:replace="~{resgistro/fragmentosRegistroMascotas :: listadoMascotas}"/>
-        
-        <footer th:replace="~{general/fragmentos :: footer}"/>
+        <header th:replace="~{layout/plantilla :: header}" />        
+
+      
+        <section th:replace="~{resgistroMascotas/fragmentosRegistroMascotas :: agregarMascotas}"/> 
+        <section th:replace="~{resgistroMascotas/fragmentosRegistroMascotas :: listadoMascotas}"/>
+
+        <footer th:replace="~{layout/plantilla :: footer}" />     
     </body>
-    
-
-
 </html>
+
+
