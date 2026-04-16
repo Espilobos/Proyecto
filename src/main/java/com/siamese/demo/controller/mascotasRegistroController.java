@@ -22,4 +22,4 @@ public class mascotasRegistroController {
     public String mascotasRegistroController(){
         return "mascotasRegistroController/fragmentosRegistroMascotas";
     }
-}
+} 
