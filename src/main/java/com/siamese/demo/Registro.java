@@ -17,7 +17,7 @@ public class Registro {
     private String nombre;
     private String raza;
     private int edad;
-    private String descripcion;
+    private String descripcion ;
     
  
     
