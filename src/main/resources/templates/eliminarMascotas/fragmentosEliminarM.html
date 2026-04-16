@@ -15,7 +15,7 @@
             <td>[[${item.mascotas.descripcion}]]</td>
 
             <td>
-                <form th:action="@{/mascotas/eliminar/}+${item.mascotas.idMascotas}" method="post">
+                <form th:action="@{/mascotas/eliminar/}+${item.mascotas.idMascotas}" method="post" >
                     <button type="submit" class="btn btn-danger">
                         Eliminar
                     </button>
@@ -23,7 +23,7 @@
             </td>
 
             <td>
-                <a th:href="@{/mascotas/editar/}+${item.mascotas.idMascotas}" class="btn btn-warning">
+                <a th:href="@{/mascotas/editar/}+${item.mascotas.idMascotas}" class="btn btn-warning" >
                     Actualizar
                 </a>
             </td>
