@@ -607,7 +607,7 @@ textarea {
 }
 
 /* Contenedor del botón */
-.boton-contenedor {
+.boton-contenedor{
     display: flex;
     justify-content: flex-end;
 }
