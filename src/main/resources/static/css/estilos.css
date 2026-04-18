@@ -596,3 +596,11 @@ tbody td {
 .cuadro-mascotas img{
     width: 320px;
 }
+.sidebar-titulo-negro {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 0.6rem;
+    display: block; 
+}

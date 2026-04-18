@@ -10,34 +10,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class CitaService {
 
-    private List<Cita> citas = new ArrayList<>();
-    private Long contadorId = 1L;
-
-    // Guardar
-    public void guardar(Cita cita) {
-        cita.setId(contadorId++);
-        citas.add(cita);
+    private final CitaRepository citaRepository;
+    
+    public CitaService(CitaRepository citaRepository){
+        this.citaRepository = citaRepository;
     }
-
-    // Listar
-    public List<Cita> listar() {
-        return citas;
+    public void guardar(Cita cita){
+        citaRepository.save(cita);
     }
-
-    // Eliminar
+    
+    public List<Cita> listar(){
+        return citaRepository.findAll();
+    }
     public void eliminar(Long id) {
-        citas.removeIf(c -> c.getId().equals(id));
+        citaRepository.deleteById(id);
     }
-//    private CitaRepository citaRepository;
-//    
-//    public void guardar(Cita cita){
-//        citaRepository.save(cita);
-//    }
-//    
-//    public List<Cita> listar(){
-//        return citaRepository.findAll();
-//    }
-//    public void eliminar(Long id) {
-//        citaRepository.deleteById(id);
-//    }
 }

@@ -1,41 +1,19 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Productos - Veterinaria</title>
-<link href="/css/estilos.css" rel="stylesheet" type="text/css"/>
-</head>
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{general/fragmentos :: head}">
+        <meta charset="UTF-8"/>
+        <title>Siamese</title>
+    </head>
 <body>
-<div class="app-wrapper">
+    <div th:replace="~{general/fragmentos :: header}"/>
+    <section th:replace="~{producto/fragmentos :: agregar}"/>
+    <section th:replace="~{producto/fragmentos :: listado}"/>
 
-    <aside class="sidebar">
-     
-        <div class="sidebar-pet-image">
-            <img src="/img/calicogato.png" alt="gato"/>
-        </div>
-    </aside>
-
-    <div class="main-content">
-        <header class="topbar">
-            <a href="/perfil">
-                <img src="/img/usuario.png" alt="usuario" width="35"/>
-            </a>
-        </header>
-
-        <h1 class="page-title">Productos</h1>
-
-        <!-- Barra de búsqueda (decorativa por ahora) -->
-        <input type="text" placeholder="Buscar producto..."
-               style="margin-bottom: 2rem; padding: 0.6rem 1rem; width: 350px;
-                      border: 1.5px solid var(--color-divider); border-radius: 8px;
-                      font-family: var(--font-body); font-size: 0.95rem;"/>
-
-        <section th:replace="~{producto/fragmentos :: agregar}"/>
-        <section th:replace="~{producto/fragmentos :: listado}"/>
-    </div>
-
-</div>
+    <section th:replace="~{producto/fragmentos :: confirmarEliminar}"/>
+    <section th:replace="~{general/fragmentos :: mostrarToast}"/>
+    
+     <footer th:replace="~{general/fragmentos :: footer}"/>
 </body>
 </html>
-

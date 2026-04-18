@@ -2,8 +2,9 @@ package com.siamese.demo.repository;
 
 import com.siamese.demo.domain.Cita;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CitaRepository // extends JpaRepository<Cita, Long>
-{
-    
+@Repository
+public interface CitaRepository extends JpaRepository<Cita, Long> {
+
 }

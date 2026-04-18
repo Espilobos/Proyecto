@@ -1,16 +1,14 @@
-package com.siamese.demo.controller;
+package templates.citas;
+
 
 import com.siamese.demo.domain.Cita;
 import com.siamese.demo.service.CitaService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CitasController {
@@ -30,13 +28,14 @@ public class CitasController {
         model.addAttribute("cita", new Cita());
         return "citas/crearCita";
     }
+    @GetMapping("/crearCita2")
+    public String crearCitas2(Model model) {
+        model.addAttribute("cita", new Cita());
+        return "citas/fragmentos";
+    }
     @PostMapping("/guardar")
-    public String guardar(@Valid Cita cita, BindingResult result, RedirectAttributes redirectAttributes){
-        if (result.hasErrors()) {
-            return "citas/crearCitas";
-        }
+    public String guardar(Cita cita){
         citaService.guardar(cita);
-        redirectAttributes.addFlashAttribute("mensaje", "Cita guardad correctamente");
         return "redirect:/citas";
     }
     @GetMapping("/consultarCita")
