@@ -21,6 +21,6 @@ public class mascotasController {
     
      @GetMapping("/mascotas")
     public String mascotas(){
-        return "mascotas/fragmentosMascotas";
+        return "mascotas/listado";
     }
 }

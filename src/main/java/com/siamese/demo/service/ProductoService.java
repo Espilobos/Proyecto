@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,10 +27,12 @@ public class ProductoService {
   
 
     private final ProductoRepository productoRepository;
+private final FirebaseStorageService firebaseStorageService;
 
-    public ProductoService(ProductoRepository productoRepository) {
-        this.productoRepository = productoRepository;
-    }
+public ProductoService(ProductoRepository productoRepository, FirebaseStorageService firebaseStorageService) {
+    this.productoRepository = productoRepository;
+    this.firebaseStorageService = firebaseStorageService;
+}
 
     @Transactional(readOnly = true)
     public List<Producto> getProductos(boolean activo) {
@@ -43,6 +46,8 @@ public class ProductoService {
     public Optional<Producto> getProducto(Integer idProducto) {
         return productoRepository.findById(idProducto);
     }
+    
+    
 
     @Transactional
     public void save(Producto producto, MultipartFile imagenFile) {
@@ -50,20 +55,18 @@ public class ProductoService {
 
         if (!imagenFile.isEmpty()) {
             try {
-          
-                String carpeta = "src/main/resources/static/img/";
-                Path ruta = Paths.get(carpeta + imagenFile.getOriginalFilename());
-                Files.createDirectories(ruta.getParent());
-                Files.write(ruta, imagenFile.getBytes());
-
-                producto.setRutaImagen("/img/" + imagenFile.getOriginalFilename());
+                String rutaImagen = firebaseStorageService.uploadImage(
+                        imagenFile,
+                        "producto",
+                        producto.getIdProducto()
+                );
+                producto.setRutaImagen(rutaImagen);
                 productoRepository.save(producto);
             } catch (IOException e) {
                 throw new RuntimeException("Error al guardar la imagen.", e);
             }
         }
     }
-
     @Transactional
     public void delete(Integer idProducto) {
         if (!productoRepository.existsById(idProducto)) {
