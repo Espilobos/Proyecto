@@ -1,18 +1,82 @@
- <html>
-  <head>
-    <title>Veterinaria Siamese Cal</title>
-    <meta charset="UTF-8"/>
-    <link href="/css/estilos.css" rel="stylesheet" type="text/css"/>
-  </head> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head>
+        <title>Veterinaria Siamese Cal</title>
+        <meta charset="UTF-8"/>
+        <link href="/css/estilos.css" rel="stylesheet" type="text/css"/>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    </head> 
   
       <body>
-        <header th:replace="~{general/fragmentos :: header}" />        
+        <header th:fragment="header" class="header">
+            <div class="app-wrapper">
+                <aside class="sidebar">
 
-      
-        <section th:replace="~{registroMascotas/fragmentosRegistroMascotas :: agregarMascotas}"/> 
-        <section th:replace="~{registroMascotas/fragmentosRegistroMascotas :: listadoMascotas}"/>
+                <div class="logo">
+                    <img src="/img/veterianaria.png" alt="" width="35"/>
+                </div>
 
-        <footer th:replace="~{layout/plantilla :: footer}" />     
+                <div class="sidebar-section">
+
+                    <ul class="menu-listCitas">
+                        <li><a href="/listadoMascotas" class="btn-citas">Lista de mascotas</a></li>
+                        <li><a href="/registroMascotas" class="btn-citas">Agregar mascotas</a></li>
+                        <li><a href="/modificarMascotas" class="btn-citas">Editar mascotas</a></li>
+                        <li><a href="/eliminarMascotas" class="btn-citas">Eliminar mascotas</a></li>
+                    </ul>
+                </div>
+
+            </aside>
+
+                <div class="main-content">
+                    <header class="topbar">
+                        <a href="/perfil">
+                            <img src="/img/usuario.png" alt="" width="35"/>
+                        </a>
+                    </header>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Dueño</th>
+                                <th>Mascota</th>
+                                <th>Edad</th>
+                                <th>Raza</th>
+                                <th>Especie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="c: ${mascotas}">
+                                <td th:text="${c.id}"></td>
+                                <td th:text="${c.nombreDueño}"></td>
+                                <td th:text="${c.nombreMascota}"></td>
+                                <td th:text="${c.edad}"></td>
+                                <td th:text="${c.raza}"></td>
+                                <td th:text="${c.especie}"></td>
+                                <td>
+                                    <form th:action="@{/eliminarMascotaLista}" method="post">
+                                        <input type="hidden" name="id" th:value="${c.id}"/>
+                                            <button type="submit" class="btn-danger">
+                                                Eliminar
+                                            </button>
+                                    </form>
+                                </td>    
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </header>
+        <footer style="margin-top: auto; padding-top: 2rem;
+                font-size: 0.8rem; color: var(--color-text-muted); text-align: center;">
+            Todos los Derechos Reservados &copy; Veterinaria
+        </footer>
     </body>
 </html>
 

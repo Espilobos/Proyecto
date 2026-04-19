@@ -12,10 +12,14 @@ import lombok.Data;
 @Entity
 @Table(name = "mascota")
 public class Mascota {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_mascota")
     private Long id;
+    
+    @Column(name= "nombre_dueño")
+    private String nombreDueño;
     
     @Column(name= "nombre_mascota")
     private String nombreMascota;

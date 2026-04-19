@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MascotaService {
+    
     private final MascotaRepository mascotaRepository;
 
     public MascotaService(MascotaRepository mascotaRepository) {

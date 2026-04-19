@@ -63,12 +63,4 @@ public class CitasController {
     public String index() {
         return "index";
     }
-    
-    @GetMapping("/editarCita/{id}")
-    public String editarCita(@PathVariable Long id, Model model){
-        Cita cita = citaService.buscarPorId(id);
-        model.addAttribute("cita", cita);
-        return "citas/crearCita";
-    }
-
 }
