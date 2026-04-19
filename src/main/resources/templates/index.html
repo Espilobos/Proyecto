@@ -1,69 +1,61 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      th:lang="${#locale.language}"> 
     <head th:replace="~{general/fragmentos :: head}">
         <meta charset="UTF-8"/>
         <title>Siamese</title>
     </head>
-  <body>
-<html>
-    <head>
-        <title>Veterinaria Siamese Cal</title>
-        <meta charset="UTF-8"/>
-        <link href="/css/estilos.css" rel="stylesheet" type="text/css"/>
-    </head>
+
     <body>
-
         <div class="app-wrapper">
-
             <aside class="sidebar">
                 <div class="sidebar-section" style="margin-top: 3.5rem;">
-                    <h2>Misión</h2>
-                    <p>Brindar atención veterinaria integral y de calidad.</p>
+                    <h2>[[#{index.mision.titulo}]]</h2>
+                    <p>[[#{index.mision.descripcion}]]</p>
                 </div>
                 <div class="sidebar-section">
-                    <h2>Visión</h2>
-                    <p>Ser una veterinaria reconocida por su excelencia.</p>
+                    <h2>[[#{index.vision.titulo}]]</h2>
+                    <p>[[#{index.vision.descripcion}]]</p>
                 </div>
 
-
-
-                <img src="/img/calicogato.png" alt=""/>
-
-
+                <img th:src="@{/img/calicogato.png}" alt=""/>
             </aside>
 
-
             <div class="main-content">
-
-
                 <header class="topbar">
-                    <a href="/perfil">
-                        <img src="/img/usuario.png" alt="" width="35"/>
-                    </a>
+                    <div style="display:flex; align-items:center; gap:0.8rem;">
+                        <span sec:authorize="isAuthenticated()"
+                              style="font-size:0.9rem; color:var(--color-text-dark);">
+                            [[#{index.saludo}]], <strong sec:authentication="name"></strong>
+                        </span>
+
+                        <a th:href="@{/perfil}" sec:authorize="isAuthenticated()">
+                             <img th:src="${session.imagenUsuario != null ? session.imagenUsuario : '/img/usuario.png'}" 
+                                  width="35" style="border-radius:50%;"/>
+                        </a>
+
+                        <a th:href="@{/login}" sec:authorize="!isAuthenticated()">
+                            <img th:src="@{/img/usuario.png}" alt="" width="35"/>
+                        </a>
+                    </div>
                 </header>
 
-
                 <section>
-                    <h1 class="menu-title">Menú</h1>
-
+                    <h1 class="menu-title">[[#{index.menu.titulo}]]</h1>
                     <ul class="menu-list">
-                        <li><a href="/mascotas">Mascotas</a></li>
-                        <li><a href="/citas">Citas</a></li>
-                        <li><a href="/producto/listado">Productos</a></li>
-                        <li><a href="/compras">Compras</a></li>
+                        <li><a th:href="@{/mascotas}">[[#{index.menu.mascotas}]]</a></li>
+                        <li><a th:href="@{/citas}">[[#{index.menu.citas}]]</a></li>
+                        <li><a th:href="@{/producto/listado}">[[#{index.menu.productos}]]</a></li>
+                        <li><a th:href="@{/compras}">[[#{index.menu.compras}]]</a></li>
                     </ul>
                 </section>
 
-                <footer style="margin-top: auto; padding-top: 2rem;
-                        font-size: 0.8rem; color: var(--color-text-muted); text-align: center;">
-                    Todos los Derechos Reservados &copy; Veterinaria
+                <footer style="margin-top: auto; padding-top: 2rem; font-size: 0.8rem; color: var(--color-text-muted); text-align: center;">
+                    [[#{index.footer.derechos}]] &copy; [[#{index.footer.nombre}]]
                 </footer>
-
             </div>
-
         </div>
-
     </body>
 </html>

@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.login-body {
+    background-color: #D0BEB2;
+    min-height: 100vh;
+    font-family: 'Lato', sans-serif;
+}
+
+.login-wrapper {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Logo arriba a la derecha */
+.login-logo {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
+/* Caja del formulario */
+.login-box {
+    background-color: #E8D5BF;
+    border-radius: 16px;
+    padding: 2.5rem 3rem;
+    width: 360px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.login-title {
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #3A2E26;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.login-group {
+    margin-bottom: 1rem;
+}
+
+.login-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: #3A2E26;
+    margin-bottom: 0.3rem;
+}
+
+.login-group input {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid #C8BDB5;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: #F5EDE0;
+    color: #3A2E26;
+    outline: none;
+}
+
+.login-group input:focus {
+    border-color: #D4956A;
+    box-shadow: 0 0 0 3px rgba(212, 149, 106, 0.2);
+}
+
+.login-btn-wrapper {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.login-btn {
+    background-color: #4A6CF7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 2rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.login-btn:hover {
+    background-color: #3A5CE0;
+}
+
+.login-error {
+    margin-top: 1rem;
+    padding: 0.6rem;
+    background: #FDECEA;
+    border-left: 4px solid #F44336;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: #B71C1C;
+}
+
+.login-success {
+    margin-top: 1rem;
+    padding: 0.6rem;
+    background: #E8F5E9;
+    border-left: 4px solid #4CAF50;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    color: #2E7D32;
+}
+
+
+.login-cat {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+}
+
+.login-cat img {
+    width: 280px;
+    height: auto;
+}
+
+.login-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #362920;
+    padding: 0.6rem;
+    text-align: center;
+    color: #D0BEB2;
+    font-size: 0.8rem;
+}
