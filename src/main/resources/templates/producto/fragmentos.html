@@ -72,43 +72,32 @@
         </section>
 
 
-        <!-- fragmento 2 para el listado de productos EN TARJETAS -->
-<section th:fragment="listado">
-  
-
-        <!-- SIDEBAR -->
+   <section th:fragment="listado">
+    <div class="app-wrapper" style="display: flex; align-items: flex-start;"> 
         <aside class="sidebar">
-            
-            <!-- PRODUCTOS dentro del sidebar en negro -->
-            <div style="padding: 1.5rem 0;">
-                <h2 style="color:#000000; font-family:var(--font-display);
-                           font-size:2rem; font-weight:600;">PRODUCTOS</h2>
+            <div class="sidebar-section" style="margin-top: 3.5rem;">
+                <span class="sidebar-titulo-negro">PRODUCTOS</span>
             </div>
-
-            <img src="/img/calicogato.png" alt=""/>
+            <img src="/img/calicogato.png" alt="Gato mascota" />
         </aside>
 
-        <!-- CONTENIDO -->
-        <div class="main-content">
-
-            <!-- Buscador -->
-            <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; margin-top:1rem;">
+        <main class="main-content" style="flex: 1; padding: 2rem;">
+            
+            <div style="display:flex; align-items:center; gap:1rem; margin-bottom: 2rem;">
                 <input type="text" id="buscador" placeholder="Buscar producto..."
                        onkeyup="filtrarProductos()"
                        style="padding:0.6rem 1rem; border:1.5px solid var(--color-divider);
                               border-radius:8px; font-size:0.95rem; width:300px;"/>
             </div>
 
-            <!-- Grid de tarjetas -->
             <div id="gridProductos"
-                 style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1.2rem;">
+                 style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:1.2rem;">
 
                 <div th:each="p : ${productos}"
                      class="card"
                      th:attr="data-nombre=${p.descripcion}"
-                     style="padding:0; overflow:hidden; cursor:pointer;">
+                     style="padding:0; overflow:hidden;">
 
-                    <!-- Imagen -->
                     <div style="background:#F0EBE3; display:flex;
                                 justify-content:center; align-items:center;
                                 height:180px; padding:1rem;">
@@ -116,11 +105,9 @@
                              style="max-height:160px; max-width:100%; object-fit:contain;"/>
                     </div>
 
-                    <!-- Info -->
                     <div style="padding:1rem;">
-                        <p style="font-family:var(--font-display);
-                                  font-size:1rem; margin-bottom:0.3rem;
-                                  color:var(--color-text-dark);">
+                        <p style="font-family:var(--font-display); font-size:1rem;
+                                 margin-bottom:0.3rem; color:var(--color-text-dark);">
                             [[${p.descripcion}]]
                         </p>
                         <p style="color:var(--color-accent); font-weight:700;">
@@ -129,8 +116,7 @@
                         <p style="font-size:0.85rem; color:var(--color-text-muted);">
                             Existencias: [[${p.existencias}]]
                         </p>
-
-                        <!-- Botones solo para ADMIN -->
+                        
                         <div sec:authorize="hasRole('ROLE_ADMIN')"
                              style="display:flex; gap:0.5rem; margin-top:0.8rem;">
                             <button class="btn btn-danger"
@@ -151,15 +137,12 @@
                 </div>
             </div>
 
-            <!-- Lista vacía -->
             <div th:if="${productos == null or productos.empty}"
                  style="text-align:center; padding:3rem; color:var(--color-text-muted);">
                 [[#{lista.vacia}]]
             </div>
-
-
-        </div>
-    
+        </main>
+    </div>
 
     <script>
         function filtrarProductos() {
@@ -241,6 +224,8 @@
             </div>
         </section>
 
+        
+     
         <!-- fragmento 4 para confirmar eliminación -->
         <section th:fragment="confirmarEliminar">
             <div class="modal fade" id="confirmModal" tabindex="-1"

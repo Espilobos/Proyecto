@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login - Veterinaria SiameseCal</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/fav/favicon-16x16.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/fav/favicon-32x32.png"/>
+    <link href="/css/estilos-login.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="login-body">
+
+    <div class="login-wrapper">
+
+        <!-- Logo arriba a la derecha -->
+        <div class="login-logo">
+            <img src="/img/logo.png" alt="logo" width="50"/>
+        </div>
+
+        <!-- Formulario centrado -->
+        <div class="login-box">
+            <h2 class="login-title">Bienvenid@ a Veterinaria Siamese Cal</h2>
+
+            <form method="POST" th:action="@{/login}">
+                <div class="login-group">
+                    <label>Usuario:</label>
+                    <input type="text" id="username" name="username" required=""/>
+                </div>
+
+                <div class="login-group">
+                    <label>contraseña:</label>
+                    <input type="password" id="password" name="password" required=""/>
+                </div>
+
+                <div class="login-btn-wrapper">
+                    <button type="submit" class="login-btn">iniciar sesión</button>
+                </div>
+            </form>
+
+            <!-- Error -->
+            <div th:if="${param.error != null}" class="login-error">
+                Credenciales incorrectas, intente de nuevo.
+            </div>
+
+            <!-- Logout -->
+            <div th:if="${param.logout != null}" class="login-success">
+                Sesión cerrada correctamente.
+            </div>
+        </div>
+
+        <!-- Imagen del gato siamés abajo a la izquierda -->
+        <div class="login-cat">
+        <img src="/img/gato-login.webp" alt="gato siamés"/>
+        </div>
+
+    </div>
+    
+    <div class="login-footer">
+    Todos los Derechos Reservados &copy; Veterinaria SiameseCal
+</div>
+
+</body>
+</html>
