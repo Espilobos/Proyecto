@@ -41,7 +41,14 @@
                                 <label>Nombre de la mascota</label>
                                 <input type="text" 
                                        class="form-control"
-                                       th:field="*{nombreCita}"
+                                       th:field="*{nombreMascota}"
+                                       required="true"/>
+                            </div>
+                            <div>
+                                <label>Nombre del dueño</label>
+                                <input type="text" 
+                                       class="form-control"
+                                       th:field="*{dueño}"
                                        required="true"/>
                             </div>
                             <div>

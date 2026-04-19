@@ -1,0 +1,33 @@
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Eliminar</th>
+            <th>Actualizar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="item : ${menu-eliminarModificar}">
+            
+            <td>[[${item.mascotas.idMascotas}]]</td>
+            
+            <td>[[${item.mascotas.descripcion}]]</td>
+
+            <td>
+                <form th:action="@{/mascotas/eliminar/}+${item.mascotas.idMascotas}" method="post" >
+                    <button type="submit" class="btn btn-danger">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+
+            <td>
+                <a th:href="@{/mascotas/editar/}+${item.mascotas.idMascotas}" class="btn btn-warning" >
+                    Actualizar
+                </a>
+            </td>
+
+        </tr>
+    </tbody>
+</table>

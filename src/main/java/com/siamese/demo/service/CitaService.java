@@ -2,9 +2,7 @@ package com.siamese.demo.service;
 
 import com.siamese.demo.domain.Cita;
 import com.siamese.demo.repository.CitaRepository;
-import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +15,9 @@ public class CitaService {
     }
     public void guardar(Cita cita){
         citaRepository.save(cita);
+    }
+    public Cita buscarPorId(Long id){
+        return citaRepository.findById(id).orElse(null);
     }
     
     public List<Cita> listar(){

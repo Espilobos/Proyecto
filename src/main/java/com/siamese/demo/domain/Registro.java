@@ -1,4 +1,6 @@
+
 package com.siamese.demo.domain;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,30 +8,25 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import lombok.Data;
+
 
 @Data
 @Entity
 @Table(name = "cita")
-public class Cita {
+public class Registro {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cita")
-    private Long id;
-    
-    @Column (name = "dueño_mascota")
-    private String dueño;
+    @Column(name = "id_mascota")
+    private int idMascota;
     
     @Column(name= "nombre_mascota")
-    private String nombreMascota;
+    private String nombre;
     
-    private String razon;
+    private String raza;
     
-    private LocalDate fecha;
+    private int edad;
     
-    @Column(name = "HORA")
-    private LocalTime horaCita;
+    private String descripcion ;
 }

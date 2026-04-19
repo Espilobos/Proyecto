@@ -1,4 +1,4 @@
-como<!DOCTYPE html>
+<!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
@@ -43,8 +43,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Nombre</th>
+                                <th>Dueño</th>
                                 <th>Razón de la cita</th>
+                                <th>Nombre</th>
                                 <th>Fecha</th>
                                 <th>Hora</th>
                             </tr>
@@ -52,10 +53,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <tbody>
                             <tr th:each="c: ${citas}">
                                 <td th:text="${c.id}"></td>
-                                <td th:text="${c.nombreCita}"></td>
+                                <td th:text="${c.dueño}"></td>
+                                <td th:text="${c.nombreMascota}"></td>
                                 <td th:text="${c.razon}"></td>
                                 <td th:text="${c.fecha}"></td>
                                 <td th:text="${c.horaCita}"></td>
+                                <td>
+                                    <form th:action="@{/eliminarCitaConsultas}" method="post">
+                                        <input type="hidden" name="id" th:value="${c.id}"/>
+                                            <button type="submit" class="btn-danger">
+                                                Eliminar
+                                            </button>
+                                    </form>
+                                </td>    
                             </tr>
                         </tbody>
                     </table>

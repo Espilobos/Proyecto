@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Veterinaria Siamese Cal</title>
+    <meta charset="UTF-8"/>
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css"/>
+  </head >    
+
+<body>
+       
+
+        <section th:fragment="listadoMascotas" id="registro">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{registros.titulo}]]</h4>
+                            </div>
+                            <div th:if="${registros != null and !registros.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>[[#{registro.idRegistro}]]</th>
+                                            <th>[[#{registro.nombre}]]</th>
+                                            <th>[[#{registro.raza}]]</th>
+                                            <th>[[#{registro.edad}]]</th>
+                                            <th>[[#{registro.descripcion}]]</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="resgistroMascotas : ${registros}">
+                                            <td>[[${registro.idRegistro}]]</td>
+                                            <td>[[${registro.nombre}]]</td>
+                                            <td>[[${registro.raza}]]</td>
+                                            <td>[[${registro.edad}]]</td>
+                                            <td>[[${registro.descripcion}]]</td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/resgistroMascotas/modificar/}+${registro.idRegistro}"
+                                                   class="btn btn-success">
+                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${registros == null or registros.empty}">
+                                <span th:text="#{resgistroMascotas.no_mostrar}">Lista vacía</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">                        
+                        <div class="card text-center bg-success text-white mb-3">
+                            <div class="card-body">
+                                <h3>[[#{resgistroMascotas.totalRegistros}]]</h3>
+                                <h4 class="fs-2">
+                                    <i class="fas fa-users"></i> [[${totalRegistros}]]
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="editarresgistroMascotas">            
+            <form method="POST"
+                  th:action="@{/Resgistro/guardar}"
+                  th:object="${Resgistro}"
+                  class="boton-contenedor">
+                <input type="hidden" name="idRegistro" th:field="*{idRegistro}"/> 
+                <section th:replace="~{ResgistroMascotas/fragmentosRegistroMascotas :: botonesEditar}"/> 
+                <div id="details"> 
+                    <div class="container"><div class="row">
+                            <div class="col"><div class="card">
+                                    <div class="card-header">
+                                        <h4>[[#{accion.actualizar}]]</h4>
+                                    </div>
+                                    <div class="card-body">                                        
+                                        <div class="form-group">
+                                            <label>[[#{Registro.nombre}]]</label>
+                                            <input type="text" class="textarea" name="nombre" th:field="*{nombre}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>[[#{Registro.raza}]]</label>
+                                            <input type="text"  class="textarea" name="raza" th:field="*{raza}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>[[#{Registro.edad}]]</label>
+                                            <input type="number"  class="textarea" name="edad" th:field="*{edad}"/>
+                                        </div> 
+                                        <div class="form-group">
+                                            <label>[[#{Registro.descripcion}]]</label>
+                                            <input type="descripcion"  class="textarea" name="descripcion" th:field="*{descripcion}"/>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section th:fragment="botonesEditar">
+            <div id="actions" class="py-4 mb-4 bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="d-grid col-md-2 mx-auto">
+                            <a th:href="@{/resgistroMascotas/listadoMascotas}" class="btn btn-ligth btn-block">
+                                <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                            </a>
+                        </div>
+                        <div class="d-grid col-md-2 mx-auto">
+                            <button type="submit" class="btn btn-success btn-block">
+                                <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+</body>
+
+  
+    <footer style="margin-top: auto; padding-top: 2rem;
+                       font-size: 0.8rem; color: var(--color-text-muted); text-align: center;">
+          Todos los Derechos Reservados &copy; Veterinaria
+        </footer>
+
+</body>
+
+</html>

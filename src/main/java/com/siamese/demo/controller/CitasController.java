@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -36,7 +37,7 @@ public class CitasController {
             return "citas/crearCitas";
         }
         citaService.guardar(cita);
-        redirectAttributes.addFlashAttribute("mensaje", "Cita guardad correctamente");
+        redirectAttributes.addFlashAttribute("mensaje", "Cita guardada correctamente");
         return "redirect:/citas";
     }
     @GetMapping("/consultarCita")
@@ -53,9 +54,21 @@ public class CitasController {
         citaService.eliminar(id);
         return "redirect:/citas";
     }
+    @PostMapping("/eliminarCitaConsultas")
+    public String eliminarConsultas(@RequestParam Long id) {
+        citaService.eliminar(id);
+        return "redirect:/consultarCita";
+    }
     @GetMapping("/index")
     public String index() {
         return "index";
+    }
+    
+    @GetMapping("/editarCita/{id}")
+    public String editarCita(@PathVariable Long id, Model model){
+        Cita cita = citaService.buscarPorId(id);
+        model.addAttribute("cita", cita);
+        return "citas/crearCita";
     }
 
 }
