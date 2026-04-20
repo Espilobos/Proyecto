@@ -68,7 +68,7 @@ public class ProjectConfig implements WebMvcConfigurer {
         return messageSource;
     }
     
-    public static final String[] PUBLIC_URLS = {
+ /*   public static final String[] PUBLIC_URLS = {
         "/", "/index", "/fav/**", "/css/**",
         "/js/**", "/webjars/**", "/img/**",
         "/login", "/acceso_denegado"
@@ -90,7 +90,7 @@ public class ProjectConfig implements WebMvcConfigurer {
     public static final String[] CLIENTE_URLS = {
         "/citas/**",
         "/compras/**"
-    };
+    };*/
     
     
       @Autowired
@@ -121,8 +121,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
                 .failureUrl("/login?error=true")
                 .permitAll()
         ).logout(logout -> logout // Configuración de logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
+              .logoutSuccessUrl("/") 
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID") //se borran cookine once logged out
                 .permitAll()

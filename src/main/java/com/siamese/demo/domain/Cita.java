@@ -37,7 +37,7 @@ public class Cita implements Serializable {
     private Usuario usuario;
 
     @Column(nullable = false)
-    private LocalDateTime fecha;
+    private LocalDate fecha;
 
     private String motivo;
     
@@ -55,4 +55,8 @@ public class Cita implements Serializable {
         Atendida,
         Cancelada
     }
+    private String raza;
+    
+    @Column(name = "HORA")
+    private LocalTime horaCita;
 }

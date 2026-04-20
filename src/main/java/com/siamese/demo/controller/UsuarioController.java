@@ -8,6 +8,8 @@ package com.siamese.demo.controller;
  *
  * @author alana
  */
+
+
 import com.siamese.demo.domain.Usuario;
 import com.siamese.demo.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -15,7 +17,7 @@ import java.util.Locale;
 import java.util.Optional;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/usuario")
+@Secured("ROLE_ADMIN") 
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -44,28 +47,29 @@ public class UsuarioController {
         return "/usuario/listado";
     }
 
-    @PostMapping("/guardar")
-    public String guardar(@Valid Usuario usuario,
-            BindingResult bindingResult,
-            @RequestParam MultipartFile imagenFile,
-            RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            // Redirige al formulario de edición/creación para mostrar errores
-            redirectAttributes.addFlashAttribute("error",
-                    messageSource.getMessage("usuario.error04", null, Locale.getDefault()));
-            // Si no hay idUsuario, redirige al listado con modal para agregar
-            if (usuario.getIdUsuario() == null) {
-                return "redirect:/usuario/listado";
-            }
-            // Si hay idUsuario, redirige al formulario de modificación
-            return "redirect:/usuario/modificar/" + usuario.getIdUsuario();
+  @PostMapping("/guardar")
+public String guardar(@Valid Usuario usuario,
+        BindingResult bindingResult,
+        @RequestParam(required = false) String rolSeleccionado,
+        @RequestParam MultipartFile imagenFile,
+        RedirectAttributes redirectAttributes) {
+    if (bindingResult.hasErrors()) {
+        redirectAttributes.addFlashAttribute("error",
+                messageSource.getMessage("usuario.error04", null, Locale.getDefault()));
+        if (usuario.getIdUsuario() == null) {
+            return "redirect:/usuario/listado";
         }
-        usuarioService.save(usuario, imagenFile, true);
-        redirectAttributes.addFlashAttribute("todoOk",
-                messageSource.getMessage("mensaje.actualizado",
-                        null, Locale.getDefault()));
-        return "redirect:/usuario/listado";
+        return "redirect:/usuario/modificar/" + usuario.getIdUsuario();
     }
+    usuarioService.save(usuario, imagenFile, true);
+    if (rolSeleccionado != null && !rolSeleccionado.isBlank()) {
+        usuarioService.asignarRolPorUsername(usuario.getUsername(), rolSeleccionado);
+    }
+    redirectAttributes.addFlashAttribute("todoOk",
+            messageSource.getMessage("mensaje.actualizado",
+                    null, Locale.getDefault()));
+    return "redirect:/usuario/listado";
+}
 
     @PostMapping("/eliminar")
     public String eliminar(@RequestParam Integer idUsuario,
@@ -108,21 +112,4 @@ public class UsuarioController {
         model.addAttribute("usuario", usuario);
         return "/usuario/modifica";
     }
-
-//    @GetMapping("/perfil")
-//    public String perfil(Model model, Authentication authentication) {
-//
-//        String username = authentication.getName();
-//
-//        Usuario usuario = usuarioService.getUsuarioPorUsername(username).get();
-//
-//        model.addAttribute("usuario", usuario);
-//        model.addAttribute("mascotas", usuario.getMascotas());
-//
-//        return "perfil/listado";
-//    }
-//    @GetMapping("/perfil")
-//    public String mostrarPerfil(){
-//        return "perfil/listado";
-//    }
 }

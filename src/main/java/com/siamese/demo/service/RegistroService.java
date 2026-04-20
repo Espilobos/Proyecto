@@ -38,32 +38,46 @@ public class RegistroService {
     }
 
     public void activar(Usuario usuario, MultipartFile imagenFile) {
-        usuario.setActivo(true);
-        usuarioService.save(usuario, imagenFile, true);
+
+        Usuario usuarioExistente = usuarioService.getUsuario(usuario.getIdUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+
+        usuarioExistente.setActivo(true);
+        usuarioExistente.setNombre(usuario.getNombre());
+        usuarioExistente.setApellidos(usuario.getApellidos());
+        usuarioExistente.setCorreo(usuario.getCorreo());
+        usuarioExistente.setTelefono(usuario.getTelefono());
+        usuarioExistente.setPassword(usuario.getPassword());
+
+
+        usuarioService.save(usuarioExistente, imagenFile, true);
     }
 
-    public Model crearUsuario(Model model, Usuario usuario) throws MessagingException {
-        String mensaje;
-        try {
-            String clave = demeClave();
-            usuario.setPassword(clave);
-            usuario.setActivo(false);
-            usuarioService.save(usuario, null, false);
-            enviaCorreoActivar(usuario, clave);
-            mensaje = String.format(
-                messageSource.getMessage("registro.mensaje.activacion.ok", null, Locale.getDefault()),
-                usuario.getCorreo()
-            );
-        } catch (MessagingException | NoSuchMessageException e) {
-            mensaje = String.format(
-                messageSource.getMessage("registro.mensaje.usuario.o.correo", null, Locale.getDefault()),
-                usuario.getUsername(), usuario.getCorreo()
-            );
-        }
-        model.addAttribute("titulo", messageSource.getMessage("registro.activar", null, Locale.getDefault()));
-        model.addAttribute("mensaje", mensaje);
-        return model;
+ public Model crearUsuario(Model model, Usuario usuario) throws MessagingException {
+    String mensaje;
+    try {
+        String clave = demeClave();
+        usuario.setPassword(clave);
+        usuario.setActivo(false);
+        usuarioService.save(usuario, null, false);
+     
+        usuarioService.asignarRolPorUsername(usuario.getUsername(), "CLIENTE");
+        enviaCorreoActivar(usuario, clave);
+        mensaje = String.format(
+            messageSource.getMessage("registro.mensaje.activacion.ok", null, Locale.getDefault()),
+            usuario.getCorreo()
+        );
+    } catch (MessagingException | NoSuchMessageException e) {
+        mensaje = String.format(
+            messageSource.getMessage("registro.mensaje.usuario.o.correo", null, Locale.getDefault()),
+            usuario.getUsername(), usuario.getCorreo()
+        );
     }
+    model.addAttribute("titulo", messageSource.getMessage("registro.activar", null, Locale.getDefault()));
+    model.addAttribute("mensaje", mensaje);
+    return model;
+}
 
     public Model recordarUsuario(Model model, Usuario usuario) throws MessagingException {
         String mensaje;

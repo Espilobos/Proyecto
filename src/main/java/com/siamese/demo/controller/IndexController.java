@@ -17,8 +17,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String index() {
-        // Al retornar "index", Spring busca templates/index.html 
-        // y activa el motor de Thymeleaf para traducir los textos.
         return "index";
     }
 }

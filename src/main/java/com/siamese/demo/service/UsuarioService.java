@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 /**
  *
  * @author alana
@@ -78,7 +79,9 @@ public class UsuarioService {
     public void save(Usuario usuario, MultipartFile imagenFile, boolean encriptaClave) {
         // Verificar si el correo ya existe, excluyendo el usuario actual        
         final Integer idUser = usuario.getIdUsuario();
-        Optional<Usuario> usuarioDuplicado = usuarioRepository.findByUsernameOrCorreo(null, usuario.getCorreo());
+        Optional<Usuario> usuarioDuplicado = usuarioRepository.findByUsernameOrCorreo(
+                usuario.getUsername(), usuario.getCorreo()
+        );
         if (usuarioDuplicado.isPresent()) {
             Usuario encontrado = usuarioDuplicado.get();
 
@@ -162,7 +165,6 @@ public class UsuarioService {
     }
 
     //Sección para gestionar roles a usuarios...
-    
     @Transactional(readOnly = true)
     public List<String> getRolesNombres() {
         // Retorna una lista de Strings con el nombre de cada rol
@@ -186,4 +188,3 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 }
-
