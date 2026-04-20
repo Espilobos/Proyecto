@@ -8,8 +8,6 @@ package com.siamese.demo.controller;
  *
  * @author alana
  */
-
-
 import com.siamese.demo.domain.Usuario;
 import com.siamese.demo.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -17,6 +15,7 @@ import java.util.Locale;
 import java.util.Optional;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,7 +60,7 @@ public class UsuarioController {
             // Si hay idUsuario, redirige al formulario de modificación
             return "redirect:/usuario/modificar/" + usuario.getIdUsuario();
         }
-        usuarioService.save(usuario, imagenFile,true);
+        usuarioService.save(usuario, imagenFile, true);
         redirectAttributes.addFlashAttribute("todoOk",
                 messageSource.getMessage("mensaje.actualizado",
                         null, Locale.getDefault()));
@@ -109,5 +108,21 @@ public class UsuarioController {
         model.addAttribute("usuario", usuario);
         return "/usuario/modifica";
     }
-}
 
+//    @GetMapping("/perfil")
+//    public String perfil(Model model, Authentication authentication) {
+//
+//        String username = authentication.getName();
+//
+//        Usuario usuario = usuarioService.getUsuarioPorUsername(username).get();
+//
+//        model.addAttribute("usuario", usuario);
+//        model.addAttribute("mascotas", usuario.getMascotas());
+//
+//        return "perfil/listado";
+//    }
+//    @GetMapping("/perfil")
+//    public String mostrarPerfil(){
+//        return "perfil/listado";
+//    }
+}

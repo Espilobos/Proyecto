@@ -286,6 +286,19 @@ html, body {
     margin: 15%;
     width: 200px;
 }
+.btn-perfil {
+    padding: 1rem 1.5rem;
+    background-color: #F7C911;
+    color: #000000;
+    border: none;
+    border-radius: var(--radius-card);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 200px;
+}
 .btn-citas:hover {
     background-color: gold;     /* tono más intenso al pasar el mouse */
 }
@@ -612,4 +625,27 @@ tbody td {
 }
 .form-control {
     font-size: 1.5rem;
+}
+
+.contenedor-mascotas{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card-mascota{
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.card-mascota:hover{
+    transform: translateY(-5px);
+}
+
+.card-mascota h3{
+    margin-bottom: 10px;
 }

@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.Data;
 import lombok.ToString;
 
@@ -45,5 +47,6 @@ public class Mascota {
     @Column(name = "fecha_modificacion")
     private LocalDate fechaModificacion;
     
-    
+    @OneToMany(mappedBy = "mascota")
+    private List<Cita> citas;
 }

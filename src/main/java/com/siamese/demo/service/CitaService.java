@@ -26,4 +26,7 @@ public class CitaService {
     public void eliminar(Long id) {
         citaRepository.deleteById(id);
     }
+    public List<Cita> buscarPorMascota(Long id) {
+    return citaRepository.findByMascotaId(id);
+}
 }

@@ -26,7 +26,7 @@
                         <ul class="menu-listCitas">
                             <li><a href="/listadoMascotas" class="btn-citas">Lista de mascotas</a></li>
                             <li><a href="/registroMascotas" class="btn-citas">Agregar mascotas</a></li>
-                            <li><a href="/modificarMascotas" class="btn-citas">Editar mascotas</a></li>
+                            <li><a href="/index" class="btn-citas">Regresar</a></li>
                             <li><a href="/eliminarMascotas" class="btn-citas">Eliminar mascotas</a></li>
                         </ul>
                     </div>
@@ -39,7 +39,7 @@
                         </a>
                     </header>
 
-                    <form action="/eliminarMascota" method="post">
+                    <form action="@{/eliminarMascota}" method="post">
                         <div class="input-citas">
                             <label> Escriba el id de la mascota a cancelar </label> 
                             <input type="number" name="id" class="form-control" required="true"/>

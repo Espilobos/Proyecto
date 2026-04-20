@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{general/fragmentos :: head}">
+        <meta charset="UTF-8"/>
+        <title>Siamese</title>
+    </head>
+    <body>
+        <section th:fragment="usuario">
+            <h2 th:text="${usuario.nombre}"></h2>
+            <p th:text="${usuario.correo}"></p>
+            <a href="/registroMascotas" class="btn-perfil">Agregar mascotas</a>
+        </section>
+        <section th:fragment="mascotas">
+            <div class="contenedor-mascotas">
+                <div class="card-mascota" th:each="m : ${usuario.mascotas}">
+
+                    <h3 th:text="${m.nombre}"></h3>
+
+                    <p><strong>Id</strong> <span th:text="${m.id}"></span></p>
+                    <p><strong>Especie:</strong> <span th:text="${m.especie}"></span></p>
+                    <p><strong>Raza:</strong> <span th:text="${m.raza}"></span></p>
+                    <p><strong>Nacimiento:</strong> <span th:text="${m.fechaNacimiento}"></span></p>
+                    <form th:action="@{/eliminarMascotaPerfil}" method="post">
+                        <input type="hidden" name="id" th:value="${m.id}"/>
+                        <button type="submit" class="btn-danger">
+                            Eliminar
+                        </button>
+                    </form>
+                    <form th:action="@{/historial}" method="post">
+                        <input type="hidden" name="id" th:value="${m.id}"/>
+                        <button type="submit" class="btn-danger">
+                            Historial
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="historial">
+
+        </section>
+        <section th:fragment="eliminar">
+
+        </section>
+    </body>
+</html>

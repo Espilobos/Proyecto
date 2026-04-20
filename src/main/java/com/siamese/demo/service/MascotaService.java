@@ -27,4 +27,5 @@ public class MascotaService {
     public void eliminar(Long id) {
         mascotaRepository.deleteById(id);
     }
+    
 }
