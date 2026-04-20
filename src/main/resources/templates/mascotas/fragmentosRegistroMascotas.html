@@ -18,21 +18,21 @@
             <div class="app-wrapper">
                 <aside class="sidebar">
 
-                <div class="logo">
-                    <img src="/img/veterianaria.png" alt="" width="35"/>
-                </div>
+                    <div class="logo">
+                        <img src="/img/veterianaria.png" alt="" width="35"/>
+                    </div>
 
-                <div class="sidebar-section">
+                    <div class="sidebar-section">
 
-                    <ul class="menu-listCitas">
-                        <li><a href="/listadoMascotas" class="btn-citas">Lista de mascotas</a></li>
-                        <li><a href="/registroMascotas" class="btn-citas">Agregar mascotas</a></li>
-                        <li><a href="/modificarMascotas" class="btn-citas">Editar mascotas</a></li>
-                        <li><a href="/eliminarMascotas" class="btn-citas">Eliminar mascotas</a></li>
-                    </ul>
-                </div>
+                        <ul class="menu-listCitas">
+                            <li><a href="/listadoMascotas" class="btn-citas">Lista de mascotas</a></li>
+                            <li><a href="/registroMascotas" class="btn-citas">Agregar mascotas</a></li>
+                            <li><a href="/modificarMascotas" class="btn-citas">Editar mascotas</a></li>
+                            <li><a href="/eliminarMascotas" class="btn-citas">Eliminar mascotas</a></li>
+                        </ul>
+                    </div>
 
-            </aside>
+                </aside>
                 <div class="main-content">
                     <header class="topbar">
                         <a href="/perfil">
@@ -42,44 +42,39 @@
                     <form th:action="@{/guardarMascota}" th:object="${mascota}" method="post">
                         <div class="input-crear">
                             <div>
-                                <label>Nombre del dueño</label>
-                                <input type="text" 
-                                       class="form-control"
-                                       th:field="*{nombreDueño}"
-                                       required="true"/>
-                            </div>
-                            <div>
                                 <label>Nombre de la mascota</label>
                                 <input type="text" 
                                        class="form-control"
-                                       th:field="*{nombreMascota}"
+                                       th:field="*{nombre}"
                                        required="true"/>
-                            </div>
-                            <div>
-                                <label>Edad</label>
-                                <input type="number" 
-                                       class="form-control" 
-                                       th:field="*{edad}" 
-                                       required="true"/>
-                            </div>
-                            <div>
-                                <label>Raza</label>
-                                <input type="text"
-                                       class='form-control' 
-                                       th:field="*{raza}"
-                                       required="true"/>
-
                             </div>
                             <div>
                                 <label>Especie</label>
                                 <input type="text" 
-                                       class='form-control' 
+                                       class="form-control"
                                        th:field="*{especie}"
                                        required="true"/>
                             </div>
-                            <button type='submit' class="btn-guardar"> Guardar </button></div>
-                    </form> 
-                </div>
+                            <div>
+                                <label>Raza</label>
+                                <input type="text" 
+                                       class="form-control"
+                                       th:field="*{raza}"
+                                       required="true"/>
+                            </div>
+                            <div>
+                                <label>Fecha de nacimiento</label>
+                                <input type="date" 
+                                       class="form-control" 
+                                       th:field="*{fechaNacimiento}"/>
+                            </div>
+                        </div>
+                        <div class="contenedor-btn">
+                            <button type='submit' class="btn-guardar"> Guardar </button>
+                        </div>
+                        
+                </form> 
+            </div>
             </div>
         </header>
         <footer style="margin-top: auto; padding-top: 2rem;

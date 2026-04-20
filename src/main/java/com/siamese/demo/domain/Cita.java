@@ -2,34 +2,57 @@ package com.siamese.demo.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "cita")
-public class Cita {
-    
+public class Cita implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cita")
-    private Long id;
+    private Long idCita;
+
+    @ManyToOne
+    @JoinColumn(name = "id_mascota")
+    private Mascota mascota;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
+    @Column(nullable = false)
+    private LocalDateTime fecha;
+
+    private String motivo;
     
-    @Column (name = "dueño_mascota")
-    private String dueño;
+    @Enumerated(EnumType.STRING)
+    private EstadoCita estado;
     
-    @Column(name= "nombre_mascota")
-    private String nombreMascota;
+    @Column(name = "fecha_creacion", updatable = false)
+    private LocalDateTime fechaCreacion;
+
+    @Column(name = "fecha_modificacion")
+    private LocalDateTime fechaModificacion;
     
-    private String razon;
-    
-    private LocalDate fecha;
-    
-    @Column(name = "HORA")
-    private LocalTime horaCita;
+    public enum EstadoCita{
+        Pendiente,
+        Atendida,
+        Cancelada
+    }
 }

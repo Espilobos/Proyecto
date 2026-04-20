@@ -5,8 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -18,15 +22,28 @@ public class Mascota {
     @Column(name = "id_mascota")
     private Long id;
     
-    @Column(name= "nombre_dueño")
-    private String nombreDueño;
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    @ToString.Exclude
+    private Usuario usuario;
     
-    @Column(name= "nombre_mascota")
-    private String nombreMascota;
-    
-    private int edad;
-    
+    private String nombre;
+    private String especie;
     private String raza;
     
-    private String especie;
+    
+    @Column(name= "fecha_nacimiento")
+    private LocalDate fechaNacimiento;
+    
+    @Column(name= "ruta_imagen")
+    private String rutaImagen;
+    
+    private boolean activo;
+    
+    @Column(name = "fecha_creacion", updatable = false)
+    private LocalDate fechaCreacion;
+    @Column(name = "fecha_modificacion")
+    private LocalDate fechaModificacion;
+    
+    
 }

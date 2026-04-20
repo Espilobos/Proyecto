@@ -45,19 +45,20 @@
                                 <th>ID</th>
                                 <th>Dueño</th>
                                 <th>Mascota</th>
-                                <th>Edad</th>
-                                <th>Raza</th>
                                 <th>Especie</th>
+                                <th>Raza</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="c: ${mascotas}">
                                 <td th:text="${c.id}"></td>
-                                <td th:text="${c.nombreDueño}"></td>
-                                <td th:text="${c.nombreMascota}"></td>
-                                <td th:text="${c.edad}"></td>
-                                <td th:text="${c.raza}"></td>
+                                <td th:text="${c.usuario.nombre}"></td>
+                                <td th:text="${c.nombre}"></td>
                                 <td th:text="${c.especie}"></td>
+                                <td th:text="${c.raza}"></td>
+                                <td th:text="${c.fechaNacimiento}"></td>
                                 <td>
                                     <form th:action="@{/eliminarMascotaLista}" method="post">
                                         <input type="hidden" name="id" th:value="${c.id}"/>
