@@ -105,7 +105,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
         http.authorizeHttpRequests(requests -> {
             for (Ruta ruta : rutas) {
                 if (ruta.isRequiereRol()) {
-                    requests.requestMatchers(ruta.getRuta()).hasAuthority(ruta.getRol().getRol());
+                   requests.requestMatchers(ruta.getRuta()).hasRole(ruta.getRol().getRol());
                 } else {
                     requests.requestMatchers(ruta.getRuta()).permitAll();
                 }
