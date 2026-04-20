@@ -2,36 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <head>
-        <title>Veterinaria Siamese Cal</title>
+    <head th:replace="~{general/fragmentos :: head}">
         <meta charset="UTF-8"/>
-        <link href="/css/estilos.css" rel="stylesheet" type="text/css"/>
-        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
-        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <title>Siamese</title>
     </head>
     <body>
+        <div th:replace="~{general/fragmentos :: header}"/>
         <header th:fragment="header" class="header">
             <div class="app-wrapper">
                 <aside class="sidebar">
 
-                <div class="logo">
-                    <img src="/img/veterianaria.png" alt="" width="35"/>
-                </div>
+                    <div class="sidebar-section" style="margin-top: 0.4rem;">
 
-                <div class="sidebar-section">
+                        <h1 class="menu-titleCitas">Citas</h1>
+                        <ul class="menu-listCitas">
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                                <a href="/crearCita" class="btn-citas">Crear Cita</a></li>
 
-                    <ul class="menu-listCitas">
-                        <li><a href="/listadoMascotas" class="btn-citas">Lista de mascotas</a></li>
-                        <li><a href="/registroMascotas" class="btn-citas">Agregar mascotas</a></li>
-                        <li><a href="/modificarMascotas" class="btn-citas">Editar mascotas</a></li>
-                        <li><a href="/eliminarMascotas" class="btn-citas">Eliminar mascotas</a></li>
-                    </ul>
-                </div>
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                                <a href="/cancelarCita" class="btn-citas">Cancelar Cita</a></li>
 
-            </aside>
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                                <a href="/index" class="btn-citas">Regresar</a></li>
+
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                                <a href="/consultarCita" class="btn-citas">Consultar Cita</a></li>
+                        </ul>
+                    </div>
+
+                </aside>
 
                 <div class="main-content">
                     <header class="topbar">
@@ -39,43 +38,41 @@
                             <img src="/img/usuario.png" alt="" width="35"/>
                         </a>
                     </header>
+
                     <form th:action="@{/guardar}" th:object="${cita}" method="post">
                         <div class="input-crear">
+
+                            <!-- MASCOTA (NUEVO) -->
                             <div>
-                                <label>Nombre de la mascota</label>
-                                <input type="text" 
-                                       class="form-control"
-                                       th:field="*{nombreMascota}"
-                                       required="true"/>
+                                <label>Mascota</label>
+                                <select class="form-control" th:field="*{mascota}" required="true">
+                                    <option value="">Seleccione una mascota</option>
+                                    <option th:each="m : ${mascotas}"
+                                            th:value="${m.id}"
+                                            th:text="${m.nombre}">
+                                    </option>
+                                </select>
                             </div>
+
+                            <!-- MOTIVO -->
                             <div>
-                                <label>Nombre del dueño</label>
-                                <input type="text" 
-                                       class="form-control"
-                                       th:field="*{dueño}"
-                                       required="true"/>
-                            </div>
-                            <div>
-                                <label>Razon de la cita</label>
+                                <label>Razón de la cita</label>
                                 <input type="text" 
                                        class="form-control" 
-                                       th:field="*{razon}" 
+                                       th:field="*{motivo}" 
                                        required="true"/>
                             </div>
+
+                            <!-- FECHA -->
                             <div>
                                 <label>Fecha de la cita</label>
-                                <input type="date"
+                                <input type="datetime-local" 
                                        class='form-control' 
-                                       th:field="*{fecha}"/>
+                                       th:field="*{fecha}" />
+                            </div>
 
-                            </div>
-                            <div>
-                                <label>Hora de la cita</label>
-                                <input type="time" 
-                                       class='form-control' 
-                                       th:field="*{horaCita}" />
-                            </div>
-                            <button type='submit' class="btn-guardar"> Guardar </button></div>
+                            <button type='submit' class="btn-guardar"> Guardar </button>
+                        </div>
                     </form> 
                 </div>
             </div>

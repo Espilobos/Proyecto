@@ -1,14 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.siamese.demo.domain;
-
-/**
- *
- * @author alana
- */
-
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -61,10 +51,10 @@ public class Usuario implements Serializable {
  
     private boolean activo;
     
-    @Column(name = "fecha_creacion", updatable = false)
+    @Column(name = "fechacreacion", updatable = false)
     private LocalDate fechaCreacion;
 
-    @Column(name = "fecha_modificacion")
+    @Column(name = "fechamodificacion")
     private LocalDate fechaModificacion;
     
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)

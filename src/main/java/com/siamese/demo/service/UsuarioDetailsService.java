@@ -1,14 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.siamese.demo.service;
-
-/**
- *
- * @author alana
- */
-
 
 import com.siamese.demo.domain.Usuario;
 import com.siamese.demo.repository.UsuarioRepository;
@@ -38,16 +28,13 @@ public class UsuarioDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
-        // Busca el usuario activo en la base de datos
         Usuario usuario = usuarioRepository.findByUsernameAndActivoTrue(username)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "Usuario no encontrado: " + username));
 
-        // Guarda la foto del usuario en sesión para mostrarla en el navbar
         session.removeAttribute("imagenUsuario");
         session.setAttribute("imagenUsuario", usuario.getRutaImagen());
 
-        // Convierte los roles del usuario a roles de Spring Security
         var roles = usuario.getRoles().stream()
                 .map(rol -> new SimpleGrantedAuthority("ROLE_" + rol.getRol()))
                 .collect(Collectors.toSet());

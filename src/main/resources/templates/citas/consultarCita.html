@@ -6,17 +6,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <head>
-        <title>Veterinaria Siamese Cal</title>
+    <head th:replace="~{general/fragmentos :: head}">
         <meta charset="UTF-8"/>
-        <link href="/css/estilos.css" rel="stylesheet" type="text/css"/>
-        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
-        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <title>Siamese</title>
     </head>
     <body>
+        <div th:replace="~{general/fragmentos :: header}"/>
         <header th:fragment="header" class="header">
             <div class="app-wrapper">
                 <aside class="sidebar">
@@ -25,10 +20,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                         <h1 class="menu-titleCitas">Citas</h1>
                         <ul class="menu-listCitas">
-                            <li><a href="/crearCita" class="btn-citas">Crear cita</a></li>
-                            <li><a href="/cancelarCita" class="btn-citas">Cancelar Cita</a></li>
-                            <li><a href="/index" class="btn-citas">Regresar</a></li>
-                            <li><a href="/consultarCita" class="btn-citas">Consultar Cita</a></li>
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                            <a href="/crearCita" class="btn-citas">Crear Cita</a></li>
+                            
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                            <a href="/cancelarCita" class="btn-citas">Cancelar Cita</a></li>
+                            
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                            <a href="/index" class="btn-citas">Regresar</a></li>
+                            
+                            <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO')">
+                            <a href="/consultarCita" class="btn-citas">Consultar Cita</a></li>
                         </ul>
                     </div>
                 </aside>
@@ -43,24 +45,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Mascota</th>
                                 <th>Dueño</th>
-                                <th>Razón de la cita</th>
-                                <th>Nombre</th>
+                                <th>Motivo</th>
+                                <th>Estado</th>
                                 <th>Fecha</th>
-                                <th>Hora</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="c: ${citas}">
-                                <td th:text="${c.id}"></td>
-                                <td th:text="${c.dueño}"></td>
-                                <td th:text="${c.nombreMascota}"></td>
-                                <td th:text="${c.razon}"></td>
+                                <td th:text="${c.idCita}"></td>
+                                <td th:text="${c.mascota.nombre}"></td>
+                                <td th:text="${c.usuario.nombre}"></td>
+                                <td th:text="${c.motivo}"></td>
+                                <td th:text="${c.estado}"></td>
                                 <td th:text="${c.fecha}"></td>
-                                <td th:text="${c.horaCita}"></td>
                                 <td>
                                     <form th:action="@{/eliminarCitaConsultas}" method="post">
-                                        <input type="hidden" name="id" th:value="${c.id}"/>
+                                        <input type="hidden" name="id" th:value="${c.idCita}"/>
                                             <button type="submit" class="btn-danger">
                                                 Eliminar
                                             </button>

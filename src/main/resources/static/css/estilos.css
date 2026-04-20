@@ -1,30 +1,24 @@
-/* ============================================
-   VETERINARIA - Estilos principales
-   Compatible con Thymeleaf / Spring Boot
-   ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Lato:wght@300;400;700&display=swap');
 
-/* ── Variables de color ── */
 :root {
-    --color-sidebar:     #D4956A;   /* naranja cálido del sidebar */
-    --color-sidebar-dark:#C07A50;   /* hover / bordes sidebar */
-    --color-bg:          #F0EBE3;   /* fondo crema principal */
+    --color-sidebar:     #D4956A;
+    --color-sidebar-dark:#C07A50;   
+    --color-bg:          #F0EBE3;   
     --color-white:       #FFFFFF;
     --color-text-light:  #FFFFFF;
     --color-text-dark:   #3A2E26;
     --color-text-muted:  #7A6A5A;
-    --color-accent:      #C07A50;   /* dorado/ámbar para títulos menú */
+    --color-accent:      #C07A50;   
     --color-divider:     #C8BDB5;
     --color-icon:        #3A2E26;
-    --color-background:  #D0BEB2; /* color para fondo de la pagina de mascotas entre otras*/
+    --color-background:  #D0BEB2; 
     --sidebar-width:     320px;
     --radius-card:       24px;
     --font-display:      'Playfair Display', Georgia, serif;
     --font-body:         'Lato', 'Segoe UI', sans-serif;
 }
 
-/* ── Reset base ── */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -39,7 +33,26 @@ html, body {
     font-size: 16px;
     line-height: 1.6;
 }
+.contenedor-historial {
+    display: flex;
+    gap: 2rem;
+}
 
+
+
+.tabla-citas {
+    width: 70%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
 /* ============================================
    LAYOUT PRINCIPAL
    ============================================ */
@@ -55,7 +68,7 @@ html, body {
     width: var(--sidebar-width);
     min-height: 100vh;
     background-color: var(--color-sidebar);
-    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+    /*border-radius: 0 var(--radius-card) var(--radius-card) 0;*/
     padding: 2rem 1.8rem 0 1.8rem;
     display: flex;
     flex-direction: column;

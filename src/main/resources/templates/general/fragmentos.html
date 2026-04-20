@@ -76,16 +76,13 @@
                                 </li>
                             </ul>
 
-                            <!-- ── Menú derecho (autenticado): Usuario + Logout ── -->
                             <ul class="navbar-nav" sec:authorize="isAuthenticated()">
                         <li class="nav-item my-auto">
                                     <a class="nav-link">
                          
-    <!-- Si tiene foto, muestra la foto -->
                                         <img th:if="${session.imagenUsuario != null}"
                                              th:src="@{${session.imagenUsuario}}"
                                              height="40" style="border-radius:50%;"/>
-    <!-- Si no tiene foto, muestra el ícono negro -->
                                         <i th:if="${session.imagenUsuario == null}"
                                            class="fas fa-user"></i>
                                         <span sec:authentication="name" class="ms-1"></span>
@@ -106,7 +103,6 @@
             </nav>
         </header>
 
-        <!-- ── Toast ── -->
         <section th:fragment="mostrarToast">
             <div aria-live="polite" aria-atomic="true"
                  class="position-fixed top-50 start-50 translate-middle"

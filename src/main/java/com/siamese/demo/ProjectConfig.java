@@ -67,8 +67,8 @@ public class ProjectConfig implements WebMvcConfigurer {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
-    
- /*   public static final String[] PUBLIC_URLS = {
+
+    /*   public static final String[] PUBLIC_URLS = {
         "/", "/index", "/fav/**", "/css/**",
         "/js/**", "/webjars/**", "/img/**",
         "/login", "/acceso_denegado"
@@ -91,17 +91,14 @@ public class ProjectConfig implements WebMvcConfigurer {
         "/citas/**",
         "/compras/**"
     };*/
-    
-    
-      @Autowired
+    @Autowired
     private RutaService rutaService;
-    
-    @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-   
- var rutas = rutaService.getRutas();
-        
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        var rutas = rutaService.getRutas();
+
         http.authorizeHttpRequests(requests -> {
             for (Ruta ruta : rutas) {
                 if (ruta.isRequiereRol()) {
@@ -112,41 +109,36 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
             }
             requests.anyRequest().authenticated();
         });
-        
-      
-               http.formLogin(form -> form // Configuración de formulario de login
+
+        http.formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/login?error=true")
                 .permitAll()
-        ).logout(logout -> logout // Configuración de logout
-              .logoutSuccessUrl("/") 
+        ).logout(logout -> logout
+                .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID") //se borran cookine once logged out
+                .deleteCookies("JSESSIONID")
                 .permitAll()
-        ).exceptionHandling(exceptions -> exceptions // Manejo de excepciones
+        ).exceptionHandling(exceptions -> exceptions
                 .accessDeniedPage("/acceso_denegado")
-        ).sessionManagement(session -> session // Configuración de sesiones
+        ).sessionManagement(session -> session 
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false)
         );
         return http.build();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-@Bean
-public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+    @Autowired
+    public void configurerGlobal(AuthenticationManagerBuilder build,
+            @Lazy PasswordEncoder passwordEncoder,
+            @Lazy UserDetailsService userDetailsService) throws Exception {
+        build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
 }
-
-
-
-@Autowired
-public void configurerGlobal(AuthenticationManagerBuilder build,
-        @Lazy PasswordEncoder passwordEncoder,
-        @Lazy UserDetailsService userDetailsService) throws Exception {
-    build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-}
-}
-

@@ -60,9 +60,6 @@
                             <a th:href="@{/producto/listado}">[[#{index.menu.productos}]]</a></li>
                         
                         
-                        <li sec:authorize="hasRole('ROLE_CLIENTE')">
-                            <a th:href="@{/compras}">[[#{index.menu.compras}]]</a></li>
-                        
                         <li sec:authorize="hasRole('ROLE_ADMIN')">
         <a href="/usuario/listado">[[#{plantilla.usuarios}]]</a>
     </li>

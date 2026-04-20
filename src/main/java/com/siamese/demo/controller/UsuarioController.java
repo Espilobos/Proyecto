@@ -1,14 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.siamese.demo.controller;
-
-/**
- *
- * @author alana
- */
-
 
 import com.siamese.demo.domain.Usuario;
 import com.siamese.demo.service.UsuarioService;
@@ -80,17 +70,14 @@ public String guardar(@Valid Usuario usuario,
                     messageSource.getMessage("mensaje.eliminado", null,
                             Locale.getDefault()));
         } catch (IllegalArgumentException e) {
-            // Captura argumento inválido para el mensaje de "no existe"
             redirectAttributes.addFlashAttribute("error",
                     messageSource.getMessage("usuario.error01", null,
                             Locale.getDefault()));
         } catch (IllegalStateException e) {
-            // Captura estado ilegal para el mensaje de "datos asociados"
             redirectAttributes.addFlashAttribute("error",
                     messageSource.getMessage("usuario.error02", null,
                             Locale.getDefault()));
         } catch (NoSuchMessageException e) {
-            // Captura cualquier otra excepción inesperada
             redirectAttributes.addFlashAttribute("error",
                     messageSource.getMessage("usuario.error03", null,
                             Locale.getDefault()));

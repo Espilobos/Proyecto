@@ -1,36 +1,53 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{general/fragmentos :: head}">
         <meta charset="UTF-8"/>
-        <title>Siamese</title>
+        <title>Citas de Mascota</title>
     </head>
-    <body>
-        <section th:fragment="historial">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Razón</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                    </tr>
-                </thead>
 
-                <tbody>
-                    <tr th:each="c: ${citas}">
-                        <td th:text="${c.id}"></td>
-                        <td th:text="${c.razon}"></td>
-                        <td th:text="${c.fecha}"></td>
-                        <td th:text="${c.hora}"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+    <body>
+
+        <div class="contenedor-citas">
+
+            <div class="card-mascota">
+                <h3 th:text="${mascota.nombre}"></h3>
+
+                <p><strong>Especie:</strong> <span th:text="${mascota.especie}"></span></p>
+                <p><strong>Raza:</strong> <span th:text="${mascota.raza}"></span></p>
+                <p><strong>Nacimiento:</strong> <span th:text="${mascota.fechaNacimiento}"></span></p>
+            </div>
+
+            <div class="card-citas">
+
+                <h3>Citas registradas</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Motivo</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:if="${citas.empty}">
+                            <td colspan="3">No hay citas registradas</td>
+                        </tr>
+
+                        <tr th:each="c : ${citas}">
+                            <td th:text="${c.fecha}"></td>
+                            <td th:text="${c.motivo}"></td>
+                            <td th:text="${c.estado}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
     </body>
 </html>

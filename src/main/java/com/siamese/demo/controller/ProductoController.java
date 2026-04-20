@@ -1,13 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.siamese.demo.controller;
-
-/**
- *
- * @author alana
- */
 
 import com.siamese.demo.domain.Producto;
 import com.siamese.demo.service.ProductoService;

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.siamese.demo.service;
 
 import com.siamese.demo.domain.Rol;
@@ -17,10 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author alana
- */
 @Service
 public class UsuarioService {
 
@@ -76,8 +68,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void save(Usuario usuario, MultipartFile imagenFile, boolean encriptaClave) {
-        // Verificar si el correo ya existe, excluyendo el usuario actual        
+    public void save(Usuario usuario, MultipartFile imagenFile, boolean encriptaClave) {  
         final Integer idUser = usuario.getIdUsuario();
         Optional<Usuario> usuarioDuplicado = usuarioRepository.findByUsernameOrCorreo(
                 usuario.getUsername(), usuario.getCorreo()
@@ -85,38 +76,30 @@ public class UsuarioService {
         if (usuarioDuplicado.isPresent()) {
             Usuario encontrado = usuarioDuplicado.get();
 
-            // Verifica si estamos en modo CREACIÓN (idUser == null) O si el ID encontrado NO es el mismo que estamos actualizando
             if (idUser == null || !encontrado.getIdUsuario().equals(idUser)) {
                 throw new DataIntegrityViolationException("El correo ya está en uso por otro usuario.");
             }
         }
 
-        //Se valida si la clave se va actualizar o si es un usuario nuevo se debe actualizar...
         var asignarRol = false;
         if (usuario.getIdUsuario() == null) {
             if (usuario.getPassword() == null || usuario.getPassword().isBlank()) {
                 throw new IllegalArgumentException("La contraseña es obligatoria para nuevos usuarios.");
             }
-            //La primera vez como es activación no se encripta...
             usuario.setPassword(encriptaClave ? passwordEncoder.encode(usuario.getPassword()) : usuario.getPassword());
             asignarRol = true;
         } else {
             if (usuario.getPassword() == null || usuario.getPassword().isBlank()) {
-                // El campo de password en el formulario viene vacío (no se desea actualizar).
-                // Recuperamos la contraseña HASHED existente de la base de datos.
                 Usuario usuarioExistente = usuarioRepository.findById(usuario.getIdUsuario())
                         .orElseThrow(() -> new IllegalArgumentException("Usuario a modificar no encontrado."));
-
-                // Asignamos la contraseña existente al objeto "usuario" antes de guardarlo.                
+  
                 usuario.setPassword(encriptaClave ? passwordEncoder.encode(usuarioExistente.getPassword()) : usuarioExistente.getPassword());
             } else {
-                // El campo de password NO está vacío (se desea actualizar).
-                // Se encripta y se guarda la nueva contraseña.
                 usuario.setPassword(encriptaClave ? passwordEncoder.encode(usuario.getPassword()) : usuario.getPassword());
             }
         }
         usuario = usuarioRepository.save(usuario);
-        if (imagenFile != null && !imagenFile.isEmpty()) { //Si no está vacío... pasaron una imagen...            
+        if (imagenFile != null && !imagenFile.isEmpty()) {             
             try {
                 String rutaImagen = firebaseStorageService.uploadImage(
                         imagenFile, "usuario", usuario.getIdUsuario());
@@ -126,23 +109,19 @@ public class UsuarioService {
             }
         }
         if (asignarRol) {
-            //Si se está creando el usuario, se crea el rol por defecto "Cliente"
             asignarRolPorUsername(usuario.getUsername(), "CLIENTE");
         }
     }
 
     @Transactional
     public void delete(Integer idUsuario) {
-        // Verifica si la categoría existe antes de intentar eliminarlo
         if (!usuarioRepository.existsById(idUsuario)) {
-            // Lanza una excepción para indicar que el usuario no fue encontrado
             throw new IllegalArgumentException(
                     "El usuario con ID " + idUsuario + " no existe.");
         }
         try {
             usuarioRepository.deleteById(idUsuario);
         } catch (DataIntegrityViolationException e) {
-            // Excepción para encapsular el problema de integridad de datos
             throw new IllegalStateException(
                     "No se puede eliminar el usuario. Tiene datos asociados.", e);
         }
@@ -164,10 +143,8 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    //Sección para gestionar roles a usuarios...
     @Transactional(readOnly = true)
     public List<String> getRolesNombres() {
-        // Retorna una lista de Strings con el nombre de cada rol
         return rolRepository.findAll().stream()
                 .map(Rol::getRol)
                 .toList();
@@ -181,10 +158,8 @@ public class UsuarioService {
         }
         Usuario usuario = usuarioOpt.get();
 
-        // Filtra la colección de roles del usuario para mantener solo los que NO coinciden con idRol
         usuario.getRoles().removeIf(rol -> rol.getIdRol().equals(idRol));
 
-        // Guarda el usuario con la colección de roles modificada
         return usuarioRepository.save(usuario);
     }
 }

@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -37,17 +39,17 @@ public class Cita implements Serializable {
     private Usuario usuario;
 
     @Column(nullable = false)
-    private LocalDate fecha;
+    private LocalDateTime fecha;
 
     private String motivo;
     
     @Enumerated(EnumType.STRING)
     private EstadoCita estado;
     
-    @Column(name = "fecha_creacion", updatable = false)
+    @Column(name = "fecha_Creacion", updatable = false)
     private LocalDateTime fechaCreacion;
 
-    @Column(name = "fecha_modificacion")
+    @Column(name = "fecha_Modificacion")
     private LocalDateTime fechaModificacion;
     
     public enum EstadoCita{
@@ -55,8 +57,15 @@ public class Cita implements Serializable {
         Atendida,
         Cancelada
     }
-    private String raza;
+    @PrePersist
+    public void preCita() {
+        this.estado = EstadoCita.Pendiente;
+        this.fechaCreacion = LocalDateTime.now();
+        this.fechaModificacion = LocalDateTime.now();
+    }
     
-    @Column(name = "HORA")
-    private LocalTime horaCita;
+    @PreUpdate
+    public void preUpdate(){
+        this.fechaModificacion = LocalDateTime.now();
+    }
 }
