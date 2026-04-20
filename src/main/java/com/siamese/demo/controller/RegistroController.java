@@ -26,10 +26,17 @@ public class RegistroController {
         this.registroService = registroService;
     }    
     
-    @GetMapping("/nuevo")
-    public String nuevo(Model model, Usuario usuario) {
-        return "/registro/nuevo";
+   @GetMapping("/nuevo")
+public String nuevo(Model model, Usuario usuario,
+                    org.springframework.security.core.Authentication auth) {
+  
+    if (auth != null && auth.isAuthenticated() 
+        && !(auth.getPrincipal() instanceof String 
+             && auth.getPrincipal().equals("anonymousUser"))) {
+        return "redirect:/";
     }
+    return "/registro/nuevo";
+}
 
     @GetMapping("/recordar")
     public String recordar(Model model, Usuario usuario) {

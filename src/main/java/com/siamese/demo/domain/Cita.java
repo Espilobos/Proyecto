@@ -26,7 +26,7 @@ public class Cita {
     @Column(name= "nombre_mascota")
     private String nombreMascota;
     
-    private String razon;
+    private String raza;
     
     private LocalDate fecha;
     

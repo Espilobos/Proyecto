@@ -1,0 +1,28 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      th:lang="${#locale.language}"> 
+    <head th:replace="~{general/fragmentos :: head}">
+        <meta charset="UTF-8"/>
+        <title>Siamese</title>
+    </head>
+<body>
+
+
+    <div style="text-align:center; padding: 5rem;">
+        <h1 style="font-family: var(--font-display); color: var(--color-accent); font-size: 4rem;">
+            403
+        </h1>
+        <h2 style="color: var(--color-text-dark);">Acceso Denegado</h2>
+        <p style="color: var(--color-text-muted); margin: 1rem 0 2rem 0;">
+            No tienes permisos para acceder a esta página.
+        </p>
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-home"></i> Volver al inicio
+        </a>
+    </div>
+
+  
+</body>
+</html>

@@ -78,7 +78,9 @@ public class UsuarioService {
     public void save(Usuario usuario, MultipartFile imagenFile, boolean encriptaClave) {
         // Verificar si el correo ya existe, excluyendo el usuario actual        
         final Integer idUser = usuario.getIdUsuario();
-        Optional<Usuario> usuarioDuplicado = usuarioRepository.findByUsernameOrCorreo(null, usuario.getCorreo());
+       Optional<Usuario> usuarioDuplicado = usuarioRepository.findByUsernameOrCorreo(
+    usuario.getUsername(), usuario.getCorreo()
+);
         if (usuarioDuplicado.isPresent()) {
             Usuario encontrado = usuarioDuplicado.get();
 

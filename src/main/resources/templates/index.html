@@ -36,8 +36,10 @@
                                   width="35" style="border-radius:50%;"/>
                         </a>
 
-                        <a th:href="@{/login}" sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}" sec:authorize="!isAuthenticated()"
+                           style="display:flex; flex-direction:column; align-items:center; text-decoration:none; color:var(--color-text-dark);">
                             <img th:src="@{/img/usuario.png}" alt="" width="35"/>
+                            <span style="font-size:0.75rem; margin-top:2px;">[[#{login.login}]]</span>
                         </a>
                     </div>
                 </header>
@@ -45,11 +47,37 @@
                 <section>
                     <h1 class="menu-title">[[#{index.menu.titulo}]]</h1>
                     <ul class="menu-list">
-                        <li><a th:href="@{/mascotas}">[[#{index.menu.mascotas}]]</a></li>
-                        <li><a th:href="@{/citas}">[[#{index.menu.citas}]]</a></li>
-                        <li><a th:href="@{/producto/listado}">[[#{index.menu.productos}]]</a></li>
-                        <li><a th:href="@{/compras}">[[#{index.menu.compras}]]</a></li>
-                    </ul>
+                        
+                       <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                            <a th:href="@{/mascotas}">[[#{index.menu.mascotas}]]</a></li>
+                        
+                        
+                        <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                            <a th:href="@{/citas}">[[#{index.menu.citas}]]</a></li>
+                        
+                        
+                        <li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VETERINARIO','ROLE_CLIENTE')">
+                            <a th:href="@{/producto/listado}">[[#{index.menu.productos}]]</a></li>
+                        
+                        
+                        <li sec:authorize="hasRole('ROLE_CLIENTE')">
+                            <a th:href="@{/compras}">[[#{index.menu.compras}]]</a></li>
+                        
+                        <li sec:authorize="hasRole('ROLE_ADMIN')">
+        <a href="/usuario/listado">[[#{plantilla.usuarios}]]</a>
+    </li>
+</ul>
+                    
+            <div sec:authorize="!isAuthenticated()"
+                         style="display:flex; flex-direction:column; align-items:center; margin-top:2rem; gap:0.8rem;">
+                        <span style="font-size:0.95rem; color:var(--color-text-muted);">
+                            [[#{index.registro.mensaje}]]
+                        </span>
+                        <a th:href="@{/registro/nuevo}" class=" btn btn-registro btn-sm">
+                            <i class="fas fa-user-plus me-1"></i>[[#{plantilla.registrarse}]]
+                        </a>
+                    </div>        
+                    
                 </section>
 
                 <footer style="margin-top: auto; padding-top: 2rem; font-size: 0.8rem; color: var(--color-text-muted); text-align: center;">
